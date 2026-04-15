@@ -10,23 +10,15 @@ import java.util.ArrayList;
 
 @RestController
 public class TaskController {
-    private final List<Task> tasks = new ArrayList<>();
-    private Long nextId = 1L;
+    private final TaskService taskService = new TaskService();
 
-    public TaskController() {
-        tasks.add(new Task(101L, "SetupLogin page", "Created First Varsiom", "In_Progress","Bivky"));
-        nextId = 104L;
-    }
     @GetMapping("/tasks")
     public List<Task> getTasks() {
-        return tasks;
+        return taskService.getTasks();
     }
     @PostMapping("/tasks")
     public Task createTask(@RequestBody Task task) {
-        task.setId(nextId);
-        nextId++;
-        tasks.add(task);
-        return task;
+        return taskService.createTask(task);
     }
 
 }
